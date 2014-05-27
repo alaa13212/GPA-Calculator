@@ -1,0 +1,50 @@
+.font {
+	font-family: cursive;
+}
+input, select {
+	font-size: 1.6em;
+}
+thead {
+	font-size: 24px;
+}
+tfoot {
+	font-size: 1.6em;
+}
+
+.table-loop,
+.table-loop td,
+.table-loop .rz {
+  -webkit-transition: all linear .2s;
+  transition: all linear .2s;
+}
+
+.rz {
+	overflow: hidden;
+}
+
+.table-loop.ng-leave.ng-leave-active,
+.table-loop.ng-move,
+.table-loop.ng-enter {
+  opacity:0;
+}
+
+.table-loop.ng-leave.ng-leave-active td,
+.table-loop.ng-move td,
+.table-loop.ng-enter td,
+.table-loop.ng-leave.ng-leave-active .rz,
+.table-loop.ng-move .rz,
+.table-loop.ng-enter .rz {
+  max-height:0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.table-loop.ng-leave,
+.table-loop.ng-move.ng-move-active,
+.table-loop.ng-enter.ng-enter-active,
+.table-loop.ng-leave .rz,
+.table-loop.ng-move.ng-move-active .rz,
+.table-loop.ng-enter.ng-enter-active .rz {
+  opacity:1;
+  max-height:46px;
+}
