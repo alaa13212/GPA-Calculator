@@ -33,13 +33,42 @@ function GPACtrl ($scope) {
 	};
 
 	$scope.getTheGPA = function (){
-		var totalGrades = 0;
+		var totalGrades = 0,
+			totalCredits = $scope.getTotalCredits(),
+			score, theGPA;
 		
 		for (var i=0, l=$scope.courses.length; i<l; i++){
 			totalGrades += ($scope.courses[i].grade * $scope.courses[i].credits);
 		}
 		
-		return Math.round(totalGrades/($scope.getTotalCredits())*1000)/1000 || 0;
+		theGPA = Math.round(totalGrades/($scope.getTotalCredits())*1000)/1000 || 0;
+		
+		score = totalGrades * (totalCredits>16 ? 16/totalCredits : 1);
+		
+		$scope.infoClass = theGPA < 1.75? "danger" : 
+				score >= 48? "success" :
+				false;
+				
+		$scope.info = !!$scope.infoClass;
+		
+		if ($scope.info) {
+			$scope.infoTitle = $scope.infoClass === "danger"? 
+								"Unfortunately :'(":
+								"Congratulation!";
+							
+			
+			$scope.infoMassage = $scope.infoClass === "danger"? 
+								"you won't receive your monthly remuneration during next Semester.":
+								"you will receive " +
+								(score >=60 ? "First" :
+								 score >=56 ? "Second" :
+								 "Third" )+
+								" Honor money.";
+		}
+		
+		
+		return theGPA;
+		
 	};
 	
 	$scope.addCourse = function (){
