@@ -12,7 +12,19 @@ angular.module("components",  [])
 		}; 
 	});
 
-angular.module("gpaCalc", ["components", "ngAnimate"]);
+gpaCalc = angular.module("gpaCalc", ["components", "ngAnimate"]);
+
+
+gpaCalc.filter('round', function() {
+	return function(n, m) {
+		if (m)
+			m = Math.pow(10, m);
+		else
+			m = 1000;
+		return Math.round(n * m) / m;
+	};
+}); 
+
 
 function GPACtrl ($scope) {
 	$scope.courses = [{
@@ -20,6 +32,10 @@ function GPACtrl ($scope) {
 		credits: 1,
 		grade: 2
 	}];
+	
+	$scope.max5 = false;
+	$scope.pastCredits = 0;
+	$scope.pastGPA = 0;
 	
 	
 	$scope.getTotalCredits = function (){
@@ -34,18 +50,42 @@ function GPACtrl ($scope) {
 
 	$scope.getTheGPA = function (){
 		var totalGrades = 0,
-			totalCredits = $scope.getTotalCredits(),
-			score, theGPA;
+			theGPA;
+			
+		$scope.sCredits = $scope.getTotalCredits();
 		
 		for (var i=0, l=$scope.courses.length; i<l; i++){
 			totalGrades += ($scope.courses[i].grade * $scope.courses[i].credits);
 		}
 		
-		theGPA = Math.round(totalGrades/($scope.getTotalCredits())*1000)/1000 || 0;
+		theGPA = (totalGrades/$scope.sCredits || 0) + ($scope.max5?1:0);
+
+		 $scope.max5 && ($scope.info = false);
+		!$scope.max5 && $scope.checkHonor(totalGrades, $scope.sCredits);
 		
+		$scope.allCredits = $scope.sCredits + $scope.pastCredits;
+		$scope.cumGPA = ($scope.sCredits*theGPA + $scope.pastCredits*$scope.pastGPA)/$scope.allCredits;
+		
+		return theGPA;
+		
+	};
+	
+	$scope.addCourse = function (){
+			$scope.courses.push({
+			name: "",
+			credits: 1,
+			grade: 2
+		});
+	};
+	$scope.removeCourse = function (index){
+		$scope.courses.splice(index, 1);
+	};
+	
+	$scope.checkHonor = function(totalGrades, totalCredits){
+		var theGPA = totalGrades/totalCredits,
 		score = totalGrades * (totalCredits>16 ? 16/totalCredits : 1);
 		
-		$scope.infoClass = theGPA < 1.75? "danger" : 
+		$scope.infoClass = $scope.cumGPA < 1.75? "danger" : 
 				score >= 48? "success" :
 				false;
 				
@@ -65,20 +105,6 @@ function GPACtrl ($scope) {
 								 "Third" )+
 								" Honor money.";
 		}
-		
-		
-		return theGPA;
-		
 	};
 	
-	$scope.addCourse = function (){
-			$scope.courses.push({
-			name: "",
-			credits: 1,
-			grade: 2
-		});
-	};
-	$scope.removeCourse = function (index){
-		$scope.courses.splice(index, 1);
-	};
 }

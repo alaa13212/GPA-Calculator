@@ -26,14 +26,16 @@
 		<app-header></app-header>
 		<div class="container">
 			<div ng-controller="GPACtrl">
-				<table class="font table table-bordered table-hover table-striped">
+				<table class="font table table-hover table-striped">
 					<thead>
 						<tr>
 							<th class="col-sm-8">Course 
 								<button class="btn btn-primary pull-right" ng-click="addCourse()" ><i class="glyphicon glyphicon-plus"></i></button>
 							</th>
 							<th class="col-sm-2">Credits</th>
-							<th class="col-sm-2">Grade</th>
+							<th class="col-sm-2">Grade
+								<button class="btn btn-info pull-right" ng-click="max5 = !max5; apply()" >Out Of {{{true: 5, false: 4}[max5]}}</button>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -71,16 +73,28 @@
 						</tr>
 					</tbody>
 					<tfoot>
+						<tr class="info">
+							<td>Current Semester</td>
+							<td>{{sCredits}}</td>
+							<td title="Current semester GPA">{{(sGPA = getTheGPA()) | round}}</td>
+						</tr>
 						<tr>
-							<td>Total</td>
-							<td>{{getTotalCredits()}}</td>
-							<td title="GPA">{{getTheGPA()}}</td>
+							<td>Past</td>
+							<td><input class="form-control" type="number" min="0" ng-model="pastCredits" /></td>
+							<td title="Past GPAs"><input class="form-control" type="number" min="0" ng-model="pastGPA" /></td>
+						</tr>
+						<tr class="info">
+							<td>Cumulative</td>
+							<td>{{allCredits}}</td>
+							<td title="Cumulative GPA">{{cumGPA | round}}</td>
 						</tr>
 					</tfoot>
 				</table>
+				
 				<div class="alert alert-{{infoClass}}" ng-show="info">
-					<strong>{{infoTitle}}</strong> {{infoMassage}}
+					<strong>For KFUPMers - {{infoTitle}}</strong> {{infoMassage}}
 				</div>
+				
 			</div>
 		</div>
 		<app-footer></app-footer>
