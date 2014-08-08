@@ -81,7 +81,7 @@
 						<tr title="Total GPA earned without current semester">
 							<td>Total GPA earned</td>
 							<td><input class="form-control" type="number" min="0" step="1" ng-model="pastCredits" /></td>
-							<td><input class="form-control" type="number" min="0" max="max5?5:4" step="0.1" ng-model="pastGPA" /></td>
+							<td><input class="form-control" type="number" min="0" max="{{max5?5:4}}" step="0.1" ng-model="pastGPA" /></td>
 						</tr>
 						<tr class="info">
 							<td>Cumulative</td>
