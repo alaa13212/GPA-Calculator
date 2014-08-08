@@ -3,30 +3,31 @@ angular.module("components",  [])
 		return {
 			restrict: "E",
 			templateUrl: "partials/header.html"
-		}; 
+		};
 	})
 	.directive('appFooter', function () {
 		return {
 			restrict: "E",
 			templateUrl: "partials/footer.html"
-		}; 
+		};
 	});
 
-gpaCalc = angular.module("gpaCalc", ["components", "ngAnimate"]);
+var gpaCalc = angular.module("gpaCalc", ["components", "ngAnimate"]);
 
 
-gpaCalc.filter('round', function() {
-	return function(n, m) {
-		if (m)
+gpaCalc.filter('round', function () {
+	return function (n, m) {
+		if (m) {
 			m = Math.pow(10, m);
-		else
+        } else {
 			m = 1000;
-		return Math.round(n * m) / m;
+        }
+        return Math.round(n * m) / m;
 	};
-}); 
+});
 
 
-function GPACtrl ($scope) {
+function GPACtrl($scope) {
 	$scope.courses = [{
 		name: "",
 		credits: 1,
@@ -37,8 +38,7 @@ function GPACtrl ($scope) {
 	$scope.pastCredits = 0;
 	$scope.pastGPA = 0;
 	
-	
-	$scope.getTotalCredits = function (){
+	$scope.getTotalCredits = function () {
 		var totalCredits = 0;
 		
 		for (var i=0, l=$scope.courses.length; i<l; i++){
@@ -99,11 +99,11 @@ function GPACtrl ($scope) {
 			
 			$scope.infoMassage = $scope.infoClass === "danger"? 
 								"you won't receive your monthly remuneration during next Semester.":
-								"you will receive " +
+								"you will receive (إن شاء الله) " +
 								(score >=60 ? "First" :
 								 score >=56 ? "Second" :
 								 "Third" )+
-								" Honor money.";
+								" Honor certificate and money.";
 		}
 	};
 	

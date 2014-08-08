@@ -74,14 +74,14 @@
 					</tbody>
 					<tfoot>
 						<tr class="info">
-							<td>Current Semester</td>
+							<td>Current semester</td>
 							<td>{{sCredits}}</td>
 							<td title="Current semester GPA">{{(sGPA = getTheGPA()) | round}}</td>
 						</tr>
-						<tr>
-							<td>Past</td>
-							<td><input class="form-control" type="number" min="0" ng-model="pastCredits" /></td>
-							<td title="Past GPAs"><input class="form-control" type="number" min="0" ng-model="pastGPA" /></td>
+						<tr title="Total GPA earned without current semester">
+							<td>Total GPA earned</td>
+							<td><input class="form-control" type="number" min="0" step="1" ng-model="pastCredits" /></td>
+							<td><input class="form-control" type="number" min="0" max="max5?5:4" step="0.1" ng-model="pastGPA" /></td>
 						</tr>
 						<tr class="info">
 							<td>Cumulative</td>
