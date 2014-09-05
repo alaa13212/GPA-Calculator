@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Draw Tool</title>
+		<meta name="description" content="">
+		<meta name="author" content="Ali">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<style>
+			canvas {
+				border: 5px dashed #555;
+				margin: 0 auto;
+				display: block;
+				cursor: crosshair;
+			}
+
+			#output {
+				margin: 1em 3px;
+				padding: 1em 2em;
+				border: 2px dashed #5f5;
+				display: block;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>Draw Tool</h1>
+			</header>
+
+			<canvas id="canvas" width="400" height="400">
+				Use Chrome or FireFox
+			</canvas>
+
+			<div id="output">
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by Ali
+				</p>
+			</footer>
+
+			<script type="text/javascript" charset="utf-8">
+				var isDown = false, points = [], $div = document.getElementById("output"), canvas = document.getElementById("canvas"), context = canvas.getContext("2d");
+
+				canvas.addEventListener("mousedown", start);
+				canvas.addEventListener("mousemove", move);
+				canvas.addEventListener("mouseup", end);
+
+				function start(event) {
+					var pos = getMousePos(canvas, event);
+					isDown = true;
+					points = [pos];
+					draw();
+				}
+
+				function move(event) {
+					if (isDown) {
+						var pos = getMousePos(canvas, event);
+						points.push(pos);
+						draw();
+					}
+				}
+
+				function end(event) {
+					if (isDown) {
+						isDown = false;
+						draw();
+						output();
+					}
+				}
+
+				function draw() {
+					canvas.width = canvas.width;
+					context.lineWidth = 4;
+					context.strokeStyle = '#0000ff';
+					context.lineCap = 'round';
+					context.beginPath();
+					context.moveTo(points[0].x, points[0].y);
+					for (var i = 1, l = points.length; i < l; ++i) {
+						context.lineTo(points[i].x, points[i].y);
+					}
+
+					context.stroke();
+				}
+
+				function output() {
+					var html = '\n[#points]\n', pointsText = '';
+
+					for (var i = 0, l = points.length; i < l; ++i) {
+						pointsText += 'P(' + Math.floor(points[i].x) + ', ' + Math.floor(points[i].y) + (i + 1 < l ? '), ' : ')');
+					}
+
+					html = html.replace('#points', pointsText);
+					//html = "<pre>" + html + "</pre>";
+
+					$div.innerHTML = html;
+				}
+
+				function getMousePos(canvas, event) {
+					if (event.offsetX) {
+						// Chrome/Safari give the event offset relative to the target event:
+						x = event.offsetX - 5;
+						y = event.offsetY - 5;
+					} else {
+						// Otherwise, subtract page click from canvas offset (Firefox uses this):
+						x = event.pageX - canvas.offsetLeft - 5;
+						y = event.pageY - canvas.offsetTop - 5;
+					}
+					return {
+						x : x,
+						y : y
+					};
+				}
+			</script>
+		</div>
+	</body>
+</html>
