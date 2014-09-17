@@ -1,5 +1,5 @@
 .font {
-	font-family: cursive;
+	font-family: cursive, 'Marker Felt', 'Comic Sans MS', sans-serif;
 	vertical-align: middle;
 }
 input, select {
@@ -21,50 +21,75 @@ tfoot {
 	overflow: hidden;
 }
 
+tfoot input, tfoot select {
+	font-size: 1.6em;
+}
+
 td {
 	-webkit-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
 
-.table-loop.ng-leave,
-.table-loop.ng-enter,
-.table-loop.ng-leave .rz,
-.table-loop.ng-enter .rz,
-.table-loop.ng-leave td,
-.table-loop.ng-enter td {
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+	.input-lg, select.input-lg {
+		height: 30px;
+		padding: 3px;
+	}
+	input, select {
+		font-size: 1em;
+	}
+
+	input[type=number] {
+		padding: 0 0 0 7px;
+	}
+
+	thead {
+		font-size: 1.4em;
+	}
+	tfoot {
+		font-size: 1.2em;
+	}
+	tfoot input, tfoot select {
+		font-size: 18px;
+		height: 30px;
+		padding: 0 0 0 7px;
+		font-weight: bold;
+	}
+	.btn {
+		font-size: 15px;
+		padding: 4.1px;
+	}
+}
+
+.table-loop.ng-leave, .table-loop.ng-enter, .table-loop.ng-leave .rz, .table-loop.ng-enter .rz, .table-loop.ng-leave td, .table-loop.ng-enter td {
 	-webkit-transition: all .7s ease-in-out;
 	transition: all .7s ease-in-out;
 }
 
-.table-loop.ng-leave.ng-leave-active,
-.table-loop.ng-enter {
+.table-loop.ng-leave.ng-leave-active, .table-loop.ng-enter {
 	opacity: 0;
 }
 
-.table-loop.ng-leave.ng-leave-active td,
-.table-loop.ng-enter td {
+.table-loop.ng-leave.ng-leave-active td, .table-loop.ng-enter td {
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-.table-loop.ng-leave.ng-leave-active .rz,
-.table-loop.ng-enter .rz {
+.table-loop.ng-leave.ng-leave-active .rz, .table-loop.ng-enter .rz {
 	max-height: 0;
 }
 
-.table-loop.ng-leave,
-.table-loop.ng-enter.ng-enter-active {
+.table-loop.ng-leave, .table-loop.ng-enter.ng-enter-active {
 	opacity: 1;
 }
 
-.table-loop.ng-leave td,
-.table-loop.ng-enter.ng-enter-active td {
+.table-loop.ng-leave td, .table-loop.ng-enter.ng-enter-active td {
 	padding-top: 14px;
 	padding-bottom: 25px;
 }
 
-.table-loop.ng-leave .rz,
-.table-loop.ng-enter.ng-enter-active .rz {
+.table-loop.ng-leave .rz, .table-loop.ng-enter.ng-enter-active .rz {
 	max-height: 47px;
 }
 

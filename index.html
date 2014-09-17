@@ -26,16 +26,16 @@
 		<app-header></app-header>
 		<div class="container">
 			<div ng-controller="GPACtrl">
+				<button class="btn btn-info pull-right" ng-click="max5 = !max5; apply()" >Out Of {{{true: 5, false: 4}[max5]}}</button>
 				<table class="font table table-hover table-striped">
 					<thead>
 						<tr>
-							<th class="col-sm-8">Course 
+							<th class="col-sm-8"> 
 								<button class="btn btn-primary pull-right" ng-click="addCourse()" ><i class="glyphicon glyphicon-plus"></i></button>
+								Course
 							</th>
 							<th class="col-sm-2">Credits</th>
-							<th class="col-sm-2">Grade
-								<button class="btn btn-info pull-right" ng-click="max5 = !max5; apply()" >Out Of {{{true: 5, false: 4}[max5]}}</button>
-							</th>
+							<th class="col-sm-2">Grade</th>
 						</tr>
 					</thead>
 					<tbody>
