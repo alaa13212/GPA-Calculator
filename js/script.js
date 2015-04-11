@@ -60,11 +60,12 @@ function GPACtrl($scope) {
 		
 		theGPA = (totalGrades/$scope.sCredits || 0) + ($scope.max5?1:0);
 
-		 $scope.max5 && ($scope.info = false);
-		!$scope.max5 && $scope.checkHonor(totalGrades, $scope.sCredits);
 		
 		$scope.allCredits = $scope.sCredits + $scope.pastCredits;
 		$scope.cumGPA = ($scope.sCredits*theGPA + $scope.pastCredits*$scope.pastGPA)/$scope.allCredits;
+		
+		 $scope.max5 && ($scope.info = false);
+		!$scope.max5 && $scope.checkHonor(totalGrades, $scope.sCredits);
 		
 		return theGPA;
 		
